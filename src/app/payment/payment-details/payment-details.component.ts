@@ -45,13 +45,13 @@ export class PaymentDetailsComponent implements OnInit {
   onPay(event) {
     event.preventDefault();
     if (this.paymentDetailsForm.valid) {
-      const dateArgs = this.paymentDetailsForm.value.expirationDate.split('/');
+      const dateArgs = this.paymentDetailsForm.controls.expirationDate.value.split('/');
       let paymentData: Payment;
       paymentData = Object.assign(this.paymentDetailsForm.value, {
         expirationDate: new Date(dateArgs[2], dateArgs[1], dateArgs[0])
       });
       this.paymentService.setPaymentData(paymentData);
-      location.href = '/';
+      location.href = location.href.substring(0, location.href.length - 7);
     }
   }
 }

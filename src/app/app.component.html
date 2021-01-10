@@ -12,7 +12,7 @@
             <div class="float-right">EXP(mm/dd/yy): <i>{{paymentData.expirationDate | date: 'shortDate'}}</i></div>
         </div>
         <div class="box-blur">
-            CVV: <span class="card-cvv">{{paymentData.cvv}}</span>
+            CVV: <span class="card-cvv">{{paymentData.cvv || '---'}}</span>
             <div class="card-amt"><em>{{paymentData.amount}}</em><strong>&nbsp;PAID</strong></div>
         </div>
     </div>
