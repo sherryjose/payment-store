@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
 
+The app has a payment form to get the user's card details. The inputs are validated and saved to session on payment. The values are then displayed on screen from the session storage**.
+
+**to be upgraded to use NgRx for state management
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
