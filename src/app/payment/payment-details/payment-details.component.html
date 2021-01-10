@@ -1,0 +1,72 @@
+<div class="container-fluid vert-center center">
+    <section class="payment-form center flex-column m-2">
+        <h3>Payment Details</h3>
+        <form [formGroup]="paymentDetailsForm" class="p-4" (ngSubmit)="onPay($event)">
+            <div class="form-group">
+                <input type="text" placeholder="Credit Card Number" pattern="[0-9]+" class="form-control"
+                    formControlName="creditCardNumber">
+                <div *ngIf="isFieldInvalid('creditCardNumber')">
+                    <small class="field-error" *ngIf="paymentDetailsForm.get('creditCardNumber').errors.required">
+                        Credit Card Number is required.
+                    </small>
+                    <small class="field-error" *ngIf="paymentDetailsForm.get('creditCardNumber').errors.pattern">
+                        Credit Card Number must be a number.
+                    </small>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Card Holder Name" class="form-control" formControlName="cardHolder">
+                <div *ngIf="isFieldInvalid('cardHolder')">
+                    <small class="field-error" *ngIf="paymentDetailsForm.get('cardHolder').errors.required">
+                        Card Holder Name is required.
+                    </small>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Expiration Date (dd/mm/yyyy)" class="form-control"
+                    formControlName="expirationDate">
+                <div *ngIf="isFieldInvalid('expirationDate')">
+                    <small class="field-error" *ngIf="paymentDetailsForm.get('expirationDate').errors.required">
+                        Expiration Date is required.
+                    </small>
+                    <small class="field-error" *ngIf="paymentDetailsForm.get('expirationDate').errors.dateFormat">
+                        Expiration Date must be in dd/mm/yyyy format.
+                    </small>
+                    <small class="field-error" *ngIf="paymentDetailsForm.get('expirationDate').errors.futureDate">
+                        Expiration Date must be a future date.
+                    </small>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Security Code - CVV" minlength=3 maxlength=3 pattern="[0-9]+"
+                    class="form-control" formControlName="cvv">
+                <div
+                    *ngIf="paymentDetailsForm.get('cvv').invalid && 
+                                        paymentDetailsForm.get('cvv').errors && 
+                                        (paymentDetailsForm.get('cvv').dirty || paymentDetailsForm.get('cvv').touched)">
+                    <small class="field-error" *ngIf="paymentDetailsForm.get('cvv').errors.pattern">
+                        CVV must be a number.
+                    </small>
+                    <small class="field-error"
+                        *ngIf="!paymentDetailsForm.get('cvv').errors.pattern && (paymentDetailsForm.get('cvv').errors.minlength || paymentDetailsForm.get('cvv').errors.maxlength)">
+                        CVV must have {{paymentDetailsForm.get('cvv').errors.minlength.requiredLength}} digits.
+                    </small>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="number" placeholder="Amount" min=1 class="form-control" formControlName="amount">
+                <div *ngIf="isFieldInvalid('amount')">
+                    <small class="field-error" *ngIf="paymentDetailsForm.get('amount').errors.required">
+                        Amount is required.
+                    </small>
+                    <small class="field-error" *ngIf="paymentDetailsForm.get('amount').errors.min">
+                        Amount must be greater than {{paymentDetailsForm.get('amount').errors.min.min}}.
+                    </small>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" [disabled]="paymentDetailsForm.invalid" class="btn btn-primary">Pay</button>
+            </div>
+        </form>
+    </section>
+</div>
